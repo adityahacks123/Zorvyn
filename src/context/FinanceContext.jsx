@@ -9,7 +9,14 @@ export const FinanceProvider = ({ children }) => {
   // Load from local storage, fallback to mockData
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('finance_transactions');
-    return saved ? JSON.parse(saved) : initialTransactions;
+    if (saved) return JSON.parse(saved);
+    
+    // If no saved data, ensure initial transactions are formatted correctly
+    return initialTransactions.map(t => ({
+      ...t,
+      id: t.id || Math.random().toString(36).substr(2, 9),
+      amount: Number(t.amount)
+    }));
   });
 
   const [role, setRole] = useState('Viewer');

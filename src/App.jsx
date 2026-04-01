@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
+import DashboardPage from './pages/DashboardPage';
 import { useFinance } from './context/FinanceContext';
 import './index.css';
 
@@ -18,12 +19,7 @@ function App() {
           setRole={setRole} 
         />
         <main className="page-content">
-          <div className="glass-panel" style={{ padding: '2rem', marginTop: '1rem' }}>
-            <h1>Welcome to Zorvyn Dashboard</h1>
-            <p style={{ color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
-              Your premium financial dashboard. Current role: {role}.
-            </p>
-          </div>
+          <DashboardPage />
         </main>
       </div>
     </div>

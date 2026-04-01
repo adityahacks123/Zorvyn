@@ -1,0 +1,59 @@
+.summary-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform var(--transition-fast);
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.icon-wrapper {
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-wrapper.primary { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+.icon-wrapper.success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.icon-wrapper.danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-amount {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+}
+
+.card-trend {
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card-trend.positive { color: var(--success); }
+.card-trend.negative { color: var(--danger); }
