@@ -4,11 +4,13 @@ import SummaryCard from '../components/ui/SummaryCard';
 import BalanceChart from '../components/charts/BalanceChart';
 import SpendingBreakdown from '../components/charts/SpendingBreakdown';
 import TransactionTable from '../components/ui/TransactionTable';
+import InsightsView from '../components/ui/InsightsView';
+import SettingsView from '../components/ui/SettingsView';
 import { Wallet, TrendingUp, TrendingDown, Lightbulb } from 'lucide-react';
 import './DashboardPage.css';
 
 const DashboardPage = () => {
-  const { transactions } = useFinance();
+  const { transactions, activeTab } = useFinance();
 
   const { totalIncome, totalExpense, balance, chartData, spendingData, highestCategory } = useMemo(() => {
     let income = 0;
@@ -56,54 +58,61 @@ const DashboardPage = () => {
 
   return (
     <div className="dashboard-page">
-      <div className="summary-grid">
-        <SummaryCard 
-          title="Total Balance" 
-          amount={balance} 
-          icon={Wallet} 
-          colorClass="primary" 
-          trend={12.5}
-        />
-        <SummaryCard 
-          title="Total Income" 
-          amount={totalIncome} 
-          icon={TrendingUp} 
-          colorClass="success" 
-          trend={8.2}
-        />
-        <SummaryCard 
-          title="Total Expenses" 
-          amount={totalExpense} 
-          icon={TrendingDown} 
-          colorClass="danger" 
-          trend={-2.4}
-        />
-      </div>
-
-      <div className="charts-grid">
-        <div className="chart-wrapper">
-          <BalanceChart data={chartData} />
-        </div>
-        <div className="side-panel">
-          <SpendingBreakdown data={spendingData} />
-          <div className="insights-panel glass-panel">
-            <div className="insights-header">
-              <Lightbulb size={20} color="var(--color-warning)" />
-              <h3>Smart Insights</h3>
-            </div>
-            <ul className="insights-list">
-              <li>
-                Your highest spending category is <strong>{highestCategory?.name || 'N/A'}</strong> at <strong>${highestCategory?.value?.toLocaleString() || 0}</strong>.
-              </li>
-              <li>
-                {balance > 0 ? "Great job! You are maintaining a positive cash flow with your recent transactions." : "Warning: Your expenses exceed your income, consider adjusting your budget."}
-              </li>
-            </ul>
+      {activeTab === 'Dashboard' && (
+        <>
+          <div className="summary-grid">
+            <SummaryCard 
+              title="Total Balance" 
+              amount={balance} 
+              icon={Wallet} 
+              colorClass="primary" 
+              trend={12.5}
+            />
+            <SummaryCard 
+              title="Total Income" 
+              amount={totalIncome} 
+              icon={TrendingUp} 
+              colorClass="success" 
+              trend={8.2}
+            />
+            <SummaryCard 
+              title="Total Expenses" 
+              amount={totalExpense} 
+              icon={TrendingDown} 
+              colorClass="danger" 
+              trend={-2.4}
+            />
           </div>
-        </div>
-      </div>
 
-      <TransactionTable />
+          <div className="charts-grid">
+            <div className="chart-wrapper">
+              <BalanceChart data={chartData} />
+            </div>
+            <div className="side-panel">
+              <SpendingBreakdown data={spendingData} />
+              <div className="insights-panel glass-panel">
+                <div className="insights-header">
+                  <Lightbulb size={20} color="var(--warning)" />
+                  <h3>Smart Insights</h3>
+                </div>
+                <ul className="insights-list">
+                  <li>
+                    Your highest spending category is <strong>{highestCategory?.name || 'N/A'}</strong> at <strong>${highestCategory?.value?.toLocaleString() || 0}</strong>.
+                  </li>
+                  <li>
+                    {balance > 0 ? "Great job! You are maintaining a positive cash flow with your recent transactions." : "Warning: Your expenses exceed your income, consider adjusting your budget."}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <TransactionTable />
+        </>
+      )}
+      
+      {activeTab === 'Transactions' && <TransactionTable />}
+      {activeTab === 'Insights' && <InsightsView />}
+      {activeTab === 'Settings' && <SettingsView />}
     </div>
   );
 };

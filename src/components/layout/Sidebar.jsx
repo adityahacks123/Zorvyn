@@ -1,8 +1,18 @@
 import React from 'react';
 import { LayoutDashboard, Receipt, PieChart, Settings } from 'lucide-react';
+import { useFinance } from '../../context/FinanceContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const { activeTab, setActiveTab } = useFinance();
+
+  const menuItems = [
+    { id: 'Dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { id: 'Transactions', icon: Receipt, label: 'Transactions' },
+    { id: 'Insights', icon: PieChart, label: 'Insights' },
+    { id: 'Settings', icon: Settings, label: 'Settings' },
+  ];
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
@@ -11,22 +21,16 @@ const Sidebar = () => {
       </div>
       <nav className="sidebar-nav">
         <ul>
-          <li className="active">
-            <LayoutDashboard size={20} />
-            <span>Dashboard</span>
-          </li>
-          <li>
-            <Receipt size={20} />
-            <span>Transactions</span>
-          </li>
-          <li>
-            <PieChart size={20} />
-            <span>Insights</span>
-          </li>
-          <li>
-            <Settings size={20} />
-            <span>Settings</span>
-          </li>
+          {menuItems.map((item) => (
+            <li 
+              key={item.id}
+              className={activeTab === item.id ? 'active' : ''}
+              onClick={() => setActiveTab(item.id)}
+            >
+              <item.icon size={20} />
+              <span>{item.label}</span>
+            </li>
+          ))}
         </ul>
       </nav>
       <div className="sidebar-footer">

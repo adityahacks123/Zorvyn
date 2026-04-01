@@ -78,13 +78,14 @@ body {
   margin-left: var(--sidebar-width);
   display: flex;
   flex-direction: column;
+  min-width: 0; /* Prevents flex items from overflowing */
 }
 
 .page-content {
   padding: 2rem;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  width: 100%;
 }
 
 @media (max-width: 1024px) {

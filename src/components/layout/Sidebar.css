@@ -64,12 +64,12 @@
 }
 
 .sidebar-nav li:hover {
-  background-color: var(--color-bg-main);
-  color: var(--color-text-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
 }
 
 .sidebar-nav li.active {
-  background-color: var(--color-primary);
+  background-color: var(--primary);
   color: white;
 }
 
@@ -77,8 +77,8 @@
   padding: 1.5rem;
   text-align: center;
   font-size: 0.875rem;
-  color: var(--color-text-muted);
-  border-top: 1px solid var(--color-border);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
 }
 
 @media (max-width: 768px) {
