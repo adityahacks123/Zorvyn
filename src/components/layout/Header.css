@@ -17,11 +17,11 @@
 .header-search {
   display: flex;
   align-items: center;
-  background: var(--bg-main);
+  background: #1a1c24;
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
-  width: 300px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 350px;
   gap: 0.5rem;
 }
 

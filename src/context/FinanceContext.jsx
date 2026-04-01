@@ -20,6 +20,7 @@ export const FinanceProvider = ({ children }) => {
   });
 
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [role, setRole] = useState('Viewer');
   const [theme, setTheme] = useState(() => localStorage.getItem('finance_theme') || 'dark');
   const [filters, setFilters] = useState({ category: 'All', type: 'All' });
@@ -57,6 +58,7 @@ export const FinanceProvider = ({ children }) => {
     theme, toggleTheme,
     filters, setFilters,
     activeTab, setActiveTab,
+    isModalOpen, setIsModalOpen,
     addTransaction, editTransaction, deleteTransaction
   };
 

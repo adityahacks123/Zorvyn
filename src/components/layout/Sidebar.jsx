@@ -1,10 +1,10 @@
 import React from 'react';
-import { LayoutDashboard, Receipt, PieChart, Settings } from 'lucide-react';
+import { LayoutDashboard, Receipt, PieChart, Settings, Plus } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const { activeTab, setActiveTab } = useFinance();
+  const { activeTab, setActiveTab, setIsModalOpen } = useFinance();
 
   const menuItems = [
     { id: 'Dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -33,6 +33,12 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
+      <div className="sidebar-action">
+        <button className="add-transaction-btn" onClick={() => setIsModalOpen(true)}>
+          <Plus size={18} />
+          <span>Add Transaction</span>
+        </button>
+      </div>
       <div className="sidebar-footer">
         <p>Premium UI Demo</p>
       </div>

@@ -5,9 +5,8 @@ import TransactionModal from './TransactionModal';
 import './TransactionTable.css';
 
 const TransactionTable = () => {
-  const { transactions, role, addTransaction, editTransaction, deleteTransaction, filters, setFilters } = useFinance();
+  const { transactions, role, addTransaction, editTransaction, deleteTransaction, filters, setFilters, isModalOpen, setIsModalOpen } = useFinance();
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState(null);
   const itemsPerPage = 8;
 
