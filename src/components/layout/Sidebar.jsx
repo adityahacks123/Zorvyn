@@ -4,7 +4,7 @@ import { useFinance } from '../../context/FinanceContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const { activeTab, setActiveTab, setIsModalOpen } = useFinance();
+  const { activeTab, setActiveTab, setIsModalOpen, role } = useFinance();
 
   const menuItems = [
     { id: 'Dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -33,12 +33,14 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
-      <div className="sidebar-action">
-        <button className="add-transaction-btn" onClick={() => setIsModalOpen(true)}>
-          <Plus size={18} />
-          <span>Add Transaction</span>
-        </button>
-      </div>
+      {role === 'Admin' && (
+        <div className="sidebar-action">
+          <button className="add-transaction-btn" onClick={() => setIsModalOpen(true)}>
+            <Plus size={18} />
+            <span>Add Transaction</span>
+          </button>
+        </div>
+      )}
       <div className="sidebar-footer">
         <p>Premium UI Demo</p>
       </div>
