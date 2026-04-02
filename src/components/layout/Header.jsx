@@ -1,17 +1,18 @@
 import React from 'react';
-import { Bell, Search, Moon, Sun, UserCircle } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import './Header.css';
 
 const Header = ({ theme, toggleTheme, role, setRole }) => {
+  const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
   return (
-    <header className="header glass-panel">
-      <div className="header-search">
-        <Search size={18} className="search-icon" />
-        <input type="text" placeholder="Search transactions..." />
+    <header className="header">
+      <div className="header-left">
+        <h1>Dashboard</h1>
+        <span className="header-date">{currentDate}</span>
       </div>
       
       <div className="header-actions">
-        {/* Role Toggle */}
         <div className="role-selector">
           <span className="role-label">Role:</span>
           <select 
@@ -24,19 +25,9 @@ const Header = ({ theme, toggleTheme, role, setRole }) => {
           </select>
         </div>
 
-        {/* Theme Toggle */}
-        <button className="icon-btn" onClick={toggleTheme} aria-label="Toggle theme">
-          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+        <button className="icon-btn outline" aria-label="Location">
+          <MapPin size={18} />
         </button>
-
-        <button className="icon-btn">
-          <Bell size={20} />
-        </button>
-        
-        <div className="user-profile">
-          <UserCircle size={24} className="profile-icon" />
-          <span>Alex Doe</span>
-        </div>
       </div>
     </header>
   );

@@ -1,66 +1,152 @@
-.dashboard-page {
+.dashboard-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
-.charts-grid {
+.style-2col {
   display: grid;
-  grid-template-columns: 1.8fr 1.2fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 1.5rem;
 }
 
-.side-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+@media (max-width: 1100px) {
+  .style-2col {
+    grid-template-columns: 1fr;
+  }
 }
 
-.insights-panel {
+.chart-panel {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.insights-header {
+.panel-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
 }
 
-.insights-header h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-main);
+.panel-header h3,
+.panel-title {
+  color: var(--color-text-main);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.badge {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--color-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.panel-body {
+  height: 280px;
+}
+
+/* Bottom Grid Specific */
+.smart-insights, .recent-transactions {
+  padding: 1.5rem;
 }
 
 .insights-list {
-  list-style: none;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.5rem;
 }
 
-.insights-list li {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.insight-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.insight-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.warn-bg { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+.success-bg { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+.primary-bg { background: rgba(99, 102, 241, 0.1); color: var(--color-primary); }
+
+.insight-text h4 {
+  color: var(--color-text-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.insight-text p {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
   line-height: 1.5;
-  padding: 0.75rem;
-  background-color: var(--bg-main);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--warning);
 }
 
-@media (max-width: 1024px) {
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
+.transactions-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tx-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tx-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tx-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.tx-dot.success { background-color: var(--color-success); }
+.tx-dot.primary { background-color: var(--color-primary); }
+
+.tx-title {
+  color: var(--color-text-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.tx-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.125rem;
+}
+
+.tx-amount {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.tx-amount.positive {
+  color: var(--color-success);
+}
+
+.tx-amount.negative {
+  color: var(--color-danger);
 }

@@ -1,103 +1,87 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { categories } from '../../data/mockData';
 import './TransactionModal.css';
 
-const TransactionModal = ({ isOpen, onClose, onSave, transaction = null }) => {
-  const [formData, setFormData] = useState(transaction || {
+const TransactionModal = ({ onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     amount: '',
-    category: '',
-    description: '',
+    category: 'Food',
     type: 'Expense'
   });
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({
+    if (!formData.amount || isNaN(formData.amount)) return;
+    
+    onSubmit({
       ...formData,
       amount: Number(formData.amount)
     });
-    onClose();
   };
-
-  const categories = ['Food', 'Transport', 'Entertainment', 'Shopping', 'Utilities', 'Salary', 'Freelance', 'Investment', 'Other'];
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content glass-panel">
+      <div className="modal-container glass-panel">
         <div className="modal-header">
-          <h2>{transaction ? 'Edit Transaction' : 'Add Transaction'}</h2>
-          <button className="close-btn" onClick={onClose}>
-            <X size={20} />
-          </button>
+          <h3>Add Transaction</h3>
+          <button onClick={onClose} className="close-btn"><X size={20} /></button>
         </div>
-        <form onSubmit={handleSubmit} className="modal-form">
+        
+        <form onSubmit={handleSubmit} className="modal-body">
           <div className="form-group">
             <label>Type</label>
-            <div className="type-toggle">
-              <button 
-                type="button" 
-                className={formData.type === 'Income' ? 'active income' : ''} 
-                onClick={() => setFormData({...formData, type: 'Income'})}
-              >
-                Income
-              </button>
-              <button 
-                type="button" 
-                className={formData.type === 'Expense' ? 'active expense' : ''} 
-                onClick={() => setFormData({...formData, type: 'Expense'})}
-              >
-                Expense
-              </button>
-            </div>
+            <select 
+              value={formData.type} 
+              onChange={e => setFormData({...formData, type: e.target.value})}
+              className="form-control"
+            >
+              <option value="Expense">Expense</option>
+              <option value="Income">Income</option>
+            </select>
           </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label>Amount</label>
-              <input 
-                type="number" 
-                required 
-                value={formData.amount} 
-                onChange={(e) => setFormData({...formData, amount: e.target.value})}
-                placeholder="0.00"
-              />
-            </div>
-            <div className="form-group">
-              <label>Date</label>
-              <input 
-                type="date" 
-                required 
-                value={formData.date} 
-                onChange={(e) => setFormData({...formData, date: e.target.value})}
-              />
-            </div>
+
+          <div className="form-group">
+            <label>Amount ($)</label>
+            <input 
+              type="number" 
+              required
+              value={formData.amount}
+              onChange={e => setFormData({...formData, amount: e.target.value})}
+              className="form-control"
+              placeholder="0.00"
+              step="0.01"
+            />
           </div>
+
           <div className="form-group">
             <label>Category</label>
             <select 
-              required 
               value={formData.category} 
-              onChange={(e) => setFormData({...formData, category: e.target.value})}
+              onChange={e => setFormData({...formData, category: e.target.value})}
+              className="form-control"
             >
-              <option value="">Select Category</option>
-              {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
             </select>
           </div>
+
           <div className="form-group">
-            <label>Description</label>
+            <label>Date</label>
             <input 
-              type="text" 
-              required 
-              value={formData.description} 
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
-              placeholder="What was this for?"
+              type="date" 
+              required
+              value={formData.date}
+              onChange={e => setFormData({...formData, date: e.target.value})}
+              className="form-control"
             />
           </div>
+
           <div className="modal-footer">
-            <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
-            <button type="submit" className="save-btn">Save Transaction</button>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
+            <button type="submit" className="btn-primary">Save Transaction</button>
           </div>
         </form>
       </div>
