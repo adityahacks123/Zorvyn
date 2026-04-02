@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFinance } from '../../context/FinanceContext';
-import { Edit2, Trash2, Plus, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { Edit2, Trash2, Plus, ChevronLeft, ChevronRight, Filter, Download } from 'lucide-react';
 import TransactionModal from './TransactionModal';
 import './TransactionTable.css';
 
@@ -15,6 +15,28 @@ const TransactionTable = () => {
     const typeMatch = filters.type === 'All' || t.type === filters.type;
     return categoryMatch && typeMatch;
   });
+
+  const exportToCSV = () => {
+    const headers = ['Date', 'Category', 'Description', 'Type', 'Amount'];
+    const csvData = filteredTransactions.map(t => [
+      new Date(t.date).toLocaleDateString(),
+      t.category,
+      t.description,
+      t.type,
+      t.amount
+    ]);
+    
+    const csvContent = [headers, ...csvData].map(e => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "transactions.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -69,6 +91,9 @@ const TransactionTable = () => {
               <option value="Expense">Expense</option>
             </select>
           </div>
+          <button className="export-btn" onClick={exportToCSV} title="Export to CSV">
+            <Download size={18} />
+          </button>
           {role === 'Admin' && (
             <button className="add-btn" onClick={handleAdd}>
               <Plus size={18} />
