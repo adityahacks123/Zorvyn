@@ -1,76 +1,54 @@
-# Zorvyn - Premium Finance Dashboard
+# Zorvyn Finance Dashboard
 
-A clean, interactive, and premium finance dashboard built with **React**, **Vite**, and **Recharts**. This project demonstrates advanced frontend capabilities including state management, data visualization, and Role-Based Access Control (RBAC).
+A premium, interactive frontend dashboard assignment focused on design quality, robust local state management, and modern React implementation.
 
-## 🚀 Key Features
+## Features & Implementation
 
 ### 1. Dashboard Overview
-- **Summary Cards**: Real-time tracking of Total Balance, Income, and Expenses with trend indicators.
-- **Balance Trend**: Interactive line chart showing financial activity over time.
-- **Spending Breakdown**: Categorical visualization (Donut chart) with a detailed value legend.
-- **Smart Insights**: Dynamic AI-like observations (Highest spending category, savings tips).
+- **Core Metrics**: Real-time calculated cards for Total Balance, Income, and Expenses.
+- **Visualizations**: Developed clean, responsive charts using Recharts for a Balance Trend (`LineChart`) and Spending Breakdown (`PieChart`). Numbers dynamically update based on global state and local regional choices (Currency).
 
-### 2. Transactions Management
-- **Full Ledger**: Comprehensive list of all financial activities.
-- **Search & Filter**: Filter transactions by category (Food, Salary, etc.) or type (Income/Expense).
-- **Pagination**: Optimized for performance with smooth page transitions.
-- **Export**: One-click **Export to CSV** functionality for external reporting.
+### 2. Transactions & Data Management
+- Complete List view with Date, Category, Type, and Amount.
+- **Search & Filtering**: Live search by category name and dropdown filtering for "Income Only" / "Expense Only".
+- **Added Export Functionality**: Users can click "Export CSV" to instantly scrape the frontend state and download an Excel-ready data file.
 
-### 3. Role-Based Access Control (RBAC)
-- **Viewer Role**: Read-only access to the dashboard and transactions. Mutation buttons (Add/Edit/Delete) are hidden.
-- **Admin Role**: Full management capabilities. Can create, update, and delete transactions.
-- **Live Switching**: Toggle roles instantly via the Settings panel to see the UI behavior change.
+### 3. Role-Based UI (RBAC)
+- Built a global toggle in the Header simulating an Admin/Viewer environment.
+- **Viewer**: Read-only access to all charts and tables.
+- **Admin**: Gains access to an "Add Transaction" modal logic and inline "Delete" buttons inside the table that permanently affect the application state.
 
-### 4. Technical Highlights
-- **State Management**: Handled via React Context API + `useReducer` pattern for robust data flow.
-- **Persistence**: Data is persisted across sessions using `localStorage`.
-- **Premium UI/UX**:
-  - **Dark Mode**: Deep dark aesthetic with glassmorphism effects.
-  - **Responsiveness**: Fully fluid layout for desktop, tablet, and mobile.
-  - **Animations**: Subtle transitions and hover effects for a premium feel.
+### 4. Smart Insights Engine
+- Dynamically iterates over transaction arrays to produce real observations.
+- Calculates highest category spend%, monthly difference mockups, and dynamic Cash Flow warnings depending on whether the user is running a surplus or deficit.
 
-## 🛠️ Technology Stack
-- **Framework**: React 18+ (Vite)
-- **Styling**: Vanilla CSS with CSS Modules/Variables for maximum control.
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Typography**: Inter / Outfit
+### 5. Settings & Deep Personalization (Optional Enhancements Done)
+- **State Management**: Built custom `React Context` API with `useReducer/useState` deeply bound to Browser `localStorage` for **Data Persistence**.
+- **Dark Mode**: Integrated a pure CSS variable-driven Theme engine. Offers a premium "Clean Fintech Light" mode and a highly readable "Soft Slate Dark" mode.
+- **Dynamic Localization**: Users can change currency from USD to INR, EUR, or GBP, dynamically affecting every number rendering across the app instantly.
 
-## 📦 Setup Instructions
+---
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/adityahacks123/Zorvyn.git
-   cd Zorvyn
-   ```
+## Technical Stack & Choices
+- **React + Vite**: Chosen for maximum frontend performance, hot-reloading speed, and zero-boilerplate setup.
+- **Vanilla CSS (CSS Modules/Variables)**: Avoided frameworks like Tailwind/MUI to aggressively demonstrate pure CSS competency. Features extensive use of CSS Flexbox/Grid, pseudo-elements, dynamic theming, and glassmorphism UI design.
+- **Lucide-React**: Clean, lightweight SVG iconography.
 
-2. **Install dependencies**:
+## Getting Started
+
+### Prerequisites
+Make sure you have Node installed (v16+).
+
+### Installation
+1. Clone the repository
+2. Navigate to project root: `cd Zorvyn`
+3. Install dependencies:
    ```bash
    npm install
    ```
-
-3. **Run in development mode**:
+4. Start the local Vite development server:
    ```bash
    npm run dev
    ```
 
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
-
-## 📂 Project Structure
-```text
-/src
-  /components
-    /layout     # Sidebar, Header
-    /charts     # BalanceTrend, SpendingBreakdown
-    /ui         # SummaryCards, Table, Modals
-  /context      # FinanceContext (State Management)
-  /data         # Mock data & Utilities
-  /pages        # DashboardPage (Main View)
-  /styles       # Global tokens & themes
-```
-
----
-*Developed by Aditya Singh*
+The dashboard will compile instantly and run locally on `http://localhost:5173/`.

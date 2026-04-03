@@ -6,15 +6,22 @@ import TransactionModal from '../components/ui/TransactionModal';
 import './TransactionsPage.css';
 
 const TransactionsPage = () => {
-  const { transactions, role, setRole, addTransaction, currencySymbol } = useFinance();
+  const { transactions, role, setRole, addTransaction, deleteTransaction, currencySymbol } = useFinance();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTransactions = transactions.filter(t => {
-      if (filter === 'All') return true;
-      return t.type === filter;
+      // Type Filter
+      if (filter !== 'All' && t.type !== filter) return false;
+      
+      // Search Filter
+      if (searchTerm && !t.category.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+
+      return true;
   }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  // CSV Export logic
   const exportToCSV = () => {
     const headers = ['Date', 'Type', 'Category', 'Amount'];
     const rows = filteredTransactions.map(tx => [
@@ -46,6 +53,14 @@ const TransactionsPage = () => {
       <div className="transactions-header">
         <h2 style={{ color: 'var(--color-text-main)' }}>All Transactions</h2>
         <div className="actions">
+          <input 
+            type="text" 
+            placeholder="Search categories..." 
+            value={searchTerm} 
+            onChange={(e) => setSearchTerm(e.target.value)} 
+            className="filter-dropdown glass-panel"
+            style={{ width: '180px' }}
+          />
           <button className="btn-outline-export" onClick={exportToCSV}>
             <Download size={18} />
             <span className="hide-mobile">Export CSV</span>
@@ -74,6 +89,7 @@ const TransactionsPage = () => {
               <th>Category</th>
               <th>Type</th>
               <th className="align-right">Amount</th>
+              {role === 'Admin' && <th style={{ width: '50px' }}></th>}
             </tr>
           </thead>
           <tbody>
@@ -90,6 +106,17 @@ const TransactionsPage = () => {
                 <td className={`align-right tx-amount ${tx.type === 'Income' ? 'positive' : 'negative'}`}>
                   {tx.type === 'Income' ? '+' : '-'}{currencySymbol}{Number(tx.amount).toLocaleString()}
                 </td>
+                {role === 'Admin' && (
+                  <td style={{ textAlign: 'center' }}>
+                     <button 
+                        onClick={() => deleteTransaction(tx.id)}
+                        className="btn-delete"
+                        title="Delete Transaction"
+                     >
+                       <span style={{ fontSize: '18px', color: 'var(--color-text-muted)' }}>&times;</span>
+                     </button>
+                  </td>
+                )}
               </tr>
             ))}
             {filteredTransactions.length === 0 && (

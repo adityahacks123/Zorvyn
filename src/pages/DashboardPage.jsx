@@ -53,12 +53,12 @@ const DashboardPage = () => {
     const recent = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
 
     return {
-      totalIncome: 12400, // Hardcoded slightly for demo to match "12,400"
-      totalExpense: 1860,
-      balance: 10540,
+      totalIncome: income,
+      totalExpense: expense,
+      balance: income - expense,
       chartData: chart,
       spendingData: categories.slice(0, 5),
-      highestCategory: categories[0] || { name: 'Rent', value: 1200 },
+      highestCategory: categories[0] || { name: 'None', value: 0 },
       recentTransactions: recent
     };
   }, [transactions]);

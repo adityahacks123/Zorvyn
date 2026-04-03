@@ -38,9 +38,9 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
       </div>
       <div className="sidebar-footer">
         <div className="user-profile">
-          <div className="user-avatar">AD</div>
+          <div className="user-avatar">AS</div>
           <div className="user-info">
-            <span className="user-name">Alex Doe</span>
+            <span className="user-name">Aditya Singh</span>
             <span className="user-role">{role}</span>
           </div>
         </div>
