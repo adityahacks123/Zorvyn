@@ -5,7 +5,7 @@ import { AlertCircle, Activity, FileText, TrendingUp, Target, CreditCard } from 
 import './InsightsPage.css';
 
 const InsightsPage = () => {
-  const { transactions } = useFinance();
+  const { transactions, currencySymbol } = useFinance();
 
   const insights = useMemo(() => {
     let income = 0;
@@ -77,7 +77,7 @@ const InsightsPage = () => {
               <span className="highlight-text warning">{insights.topCategory?.name || 'N/A'}</span>
             </div>
             <p className="insight-desc">
-              Your highest expense is <strong>{insights.topCategory?.name}</strong> at <strong>${insights.topCategory?.value.toLocaleString()}</strong>. 
+              Your highest expense is <strong>{insights.topCategory?.name}</strong> at <strong>{currencySymbol}{insights.topCategory?.value.toLocaleString()}</strong>. 
               This makes up <strong>{insights.topCategoryPercentage}%</strong> of your total spending this period.
             </p>
           </div>
@@ -115,7 +115,7 @@ const InsightsPage = () => {
             <p className="insight-desc">
               {insights.isHealthy 
                 ? `You have a healthy positive cash flow. Your savings rate is strong at ${insights.savingsRate}%. Maintaining this rate will significantly boost your long term reserves.`
-                : `Warning: Your expenses are currently exceeding your income by $${Math.abs(insights.balance).toLocaleString()}. Consider reviewing your top categories to cut back.`}
+                : `Warning: Your expenses are currently exceeding your income by ${currencySymbol}${Math.abs(insights.balance).toLocaleString()}. Consider reviewing your top categories to cut back.`}
             </p>
           </div>
         </div>

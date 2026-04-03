@@ -6,7 +6,7 @@ import TransactionModal from '../components/ui/TransactionModal';
 import './TransactionsPage.css';
 
 const TransactionsPage = () => {
-  const { transactions, role, setRole, addTransaction } = useFinance();
+  const { transactions, role, setRole, addTransaction, currencySymbol } = useFinance();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState('All');
 
@@ -88,7 +88,7 @@ const TransactionsPage = () => {
                 </td>
                 <td>{tx.type}</td>
                 <td className={`align-right tx-amount ${tx.type === 'Income' ? 'positive' : 'negative'}`}>
-                  {tx.type === 'Income' ? '+' : '-'}${Number(tx.amount).toLocaleString()}
+                  {tx.type === 'Income' ? '+' : '-'}{currencySymbol}{Number(tx.amount).toLocaleString()}
                 </td>
               </tr>
             ))}

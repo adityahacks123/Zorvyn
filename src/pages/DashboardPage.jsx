@@ -8,7 +8,7 @@ import { Wallet, TrendingUp, TrendingDown, AlertCircle, Activity, FileText } fro
 import './DashboardPage.css';
 
 const DashboardPage = () => {
-  const { transactions, role, setRole } = useFinance();
+  const { transactions, role, setRole, currencySymbol } = useFinance();
 
   const { totalIncome, totalExpense, balance, chartData, spendingData, highestCategory, recentTransactions } = useMemo(() => {
     let income = 0;
@@ -120,21 +120,21 @@ const DashboardPage = () => {
                 <div className="insight-icon warn-bg"><AlertCircle size={18} /></div>
                 <div className="insight-text">
                   <h4>Top spending category</h4>
-                  <p>{highestCategory.name} is your highest expense at ${highestCategory.value.toLocaleString()} — 64% of total spending this month.</p>
+                  <p>{highestCategory.name} is your highest expense at {currencySymbol}{highestCategory.value.toLocaleString()} — 64% of total spending this month.</p>
                 </div>
              </div>
              <div className="insight-item">
                 <div className="insight-icon success-bg"><Activity size={18} /></div>
                 <div className="insight-text">
                   <h4>Positive cash flow</h4>
-                  <p>You saved ${balance.toLocaleString()} this month. Savings rate is 85% — excellent!</p>
+                  <p>You saved {currencySymbol}{balance.toLocaleString()} this month. Savings rate is 85% — excellent!</p>
                 </div>
              </div>
              <div className="insight-item">
                 <div className="insight-icon primary-bg"><FileText size={18} /></div>
                 <div className="insight-text">
                   <h4>Monthly comparison</h4>
-                  <p>Expenses dropped 2.4% vs last month. Food spend increased by $45.</p>
+                  <p>Expenses dropped 2.4% vs last month. Food spend increased by {currencySymbol}45.</p>
                 </div>
              </div>
           </div>
@@ -153,7 +153,7 @@ const DashboardPage = () => {
                     </div>
                   </div>
                   <div className={`tx-amount ${tx.type === 'Income' ? 'positive' : 'negative'}`}>
-                    {tx.type === 'Income' ? '+' : '-'}${Number(tx.amount).toLocaleString()}
+                    {tx.type === 'Income' ? '+' : '-'}{currencySymbol}{Number(tx.amount).toLocaleString()}
                   </div>
                 </div>
               ))}

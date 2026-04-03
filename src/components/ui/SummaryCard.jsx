@@ -1,7 +1,9 @@
 import React from 'react';
+import { useFinance } from '../../context/FinanceContext';
 import './SummaryCard.css';
 
 const SummaryCard = ({ title, amount, trend, icon: Icon, colorClass }) => {
+  const { currencySymbol } = useFinance();
   return (
     <div className="summary-card glass-panel">
       <div className="card-top">
@@ -14,7 +16,7 @@ const SummaryCard = ({ title, amount, trend, icon: Icon, colorClass }) => {
       </div>
       <div className="card-bottom">
         <h2 className="card-amount">
-          ${amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+          {currencySymbol}{amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
         </h2>
         {trend !== undefined && (
           <div className={`card-trend ${trend >= 0 ? 'positive' : 'negative'}`}>
