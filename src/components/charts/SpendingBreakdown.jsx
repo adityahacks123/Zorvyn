@@ -1,7 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-// Specific colors matching the provided image (indigo, emerald, yellowish, red, purple)
+// Match standard soft dark theme
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#a855f7', '#06b6d4'];
 
 const SpendingBreakdown = ({ data }) => {

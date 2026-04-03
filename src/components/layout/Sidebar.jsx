@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Receipt, PieChart, Settings } from 'lucide-react';
+import { LayoutDashboard, Receipt, PieChart, Settings, Hexagon } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
 import './Sidebar.css';
 
@@ -10,8 +10,10 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
     <aside className="sidebar">
       <div className="sidebar-top">
         <div className="sidebar-logo">
-          <div className="logo-icon">Z</div>
-          <h2>Zorvyn</h2>
+          <div className="logo-icon-premium">
+            <Hexagon size={24} strokeWidth={2.5} color="white" />
+          </div>
+          <h2 className="logo-text">Zorvyn</h2>
         </div>
         <nav className="sidebar-nav">
           <ul>

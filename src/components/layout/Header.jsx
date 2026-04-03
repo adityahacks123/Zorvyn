@@ -1,8 +1,10 @@
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin, Sun, Moon } from 'lucide-react';
+import { useFinance } from '../../context/FinanceContext';
 import './Header.css';
 
-const Header = ({ theme, toggleTheme, role, setRole }) => {
+const Header = () => {
+  const { theme, toggleTheme, role, setRole } = useFinance();
   const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
   return (
@@ -24,6 +26,10 @@ const Header = ({ theme, toggleTheme, role, setRole }) => {
             <option value="Admin">Admin</option>
           </select>
         </div>
+
+        <button className="icon-btn outline" onClick={toggleTheme} aria-label="Toggle Theme">
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
 
         <button className="icon-btn outline" aria-label="Location">
           <MapPin size={18} />
