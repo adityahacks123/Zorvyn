@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/layout/Header';
 import { useFinance } from '../context/FinanceContext';
-import { Plus } from 'lucide-react';
+import { Plus, Download } from 'lucide-react';
 import TransactionModal from '../components/ui/TransactionModal';
 import './TransactionsPage.css';
 
@@ -15,13 +15,42 @@ const TransactionsPage = () => {
       return t.type === filter;
   }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  const exportToCSV = () => {
+    const headers = ['Date', 'Type', 'Category', 'Amount'];
+    const rows = filteredTransactions.map(tx => [
+      new Date(tx.date).toLocaleDateString(),
+      tx.type,
+      tx.category,
+      tx.amount
+    ]);
+    
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(e => e.join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'zorvyn_transactions.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="transactions-content">
-      <Header theme="dark" role={role} setRole={setRole} />
+      <Header />
       
       <div className="transactions-header">
         <h2 style={{ color: 'var(--color-text-main)' }}>All Transactions</h2>
         <div className="actions">
+          <button className="btn-outline-export" onClick={exportToCSV}>
+            <Download size={18} />
+            <span className="hide-mobile">Export CSV</span>
+          </button>
+
           <select value={filter} onChange={(e) => setFilter(e.target.value)} className="filter-dropdown glass-panel">
             <option value="All">All Types</option>
             <option value="Income">Income Only</option>
