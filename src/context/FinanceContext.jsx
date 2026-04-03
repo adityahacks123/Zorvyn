@@ -24,6 +24,8 @@ export const FinanceProvider = ({ children }) => {
   const [role, setRole] = useState('Viewer');
   const [theme, setTheme] = useState(() => localStorage.getItem('finance_theme') || 'dark');
   const [filters, setFilters] = useState({ category: 'All', type: 'All' });
+  const [currency, setCurrency] = useState(() => localStorage.getItem('finance_currency') || 'USD');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Sync to local storage
   useEffect(() => {
@@ -34,6 +36,20 @@ export const FinanceProvider = ({ children }) => {
     localStorage.setItem('finance_theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('finance_currency', currency);
+  }, [currency]);
+
+  // Derived symbol
+  const currencySymbol = React.useMemo(() => {
+    switch (currency) {
+      case 'EUR': return '€';
+      case 'INR': return '₹';
+      case 'GBP': return '£';
+      default: return '$';
+    }
+  }, [currency]);
 
   // CRUD Actions for Admin Role
   const addTransaction = (transaction) => {
@@ -52,14 +68,21 @@ export const FinanceProvider = ({ children }) => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
+  const resetData = () => {
+    setTransactions(initialTransactions);
+    localStorage.removeItem('finance_transactions');
+  };
+
   const value = {
     transactions,
     role, setRole,
     theme, toggleTheme,
+    currency, setCurrency, currencySymbol,
     filters, setFilters,
+    isSidebarOpen, setIsSidebarOpen,
     activeTab, setActiveTab,
     isModalOpen, setIsModalOpen,
-    addTransaction, editTransaction, deleteTransaction
+    addTransaction, editTransaction, deleteTransaction, resetData
   };
 
   return (

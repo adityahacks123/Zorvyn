@@ -1,17 +1,22 @@
 import React from 'react';
-import { MapPin, Sun, Moon } from 'lucide-react';
+import { MapPin, Sun, Moon, Menu } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
 import './Header.css';
 
 const Header = () => {
-  const { theme, toggleTheme, role, setRole } = useFinance();
+  const { theme, toggleTheme, role, setRole, setIsSidebarOpen } = useFinance();
   const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
   return (
     <header className="header">
       <div className="header-left">
-        <h1>Dashboard</h1>
-        <span className="header-date">{currentDate}</span>
+        <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
+          <Menu size={24} />
+        </button>
+        <div>
+          <h1>Dashboard</h1>
+          <span className="header-date">{currentDate}</span>
+        </div>
       </div>
       
       <div className="header-actions">
