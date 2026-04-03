@@ -1,0 +1,70 @@
+.insights-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.insights-header {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  transition: transform var(--transition-normal);
+}
+
+.insight-card:hover {
+  transform: translateY(-4px);
+}
+
+.insight-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insight-card-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+.insight-highlight {
+  margin-bottom: 0.75rem;
+}
+
+.highlight-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.highlight-text.warning { color: var(--color-warning); }
+.highlight-text.primary { color: var(--color-primary); }
+.highlight-text.success { color: var(--color-success); }
+.highlight-text.danger { color: var(--color-danger); }
+
+.insight-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.insight-desc strong {
+  color: var(--color-text-main);
+  font-weight: 600;
+}

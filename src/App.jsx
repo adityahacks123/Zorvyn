@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
+import InsightsPage from './pages/InsightsPage';
 import { useFinance } from './context/FinanceContext';
 import './index.css';
 
@@ -16,11 +17,7 @@ function App() {
       case 'transactions':
         return <TransactionsPage />;
       case 'insights':
-        return (
-          <div className="page-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <h2 style={{ color: 'var(--color-text-muted)' }}>Insights (Coming Soon)</h2>
-          </div>
-        );
+        return <InsightsPage />;
       case 'settings':
         return (
           <div className="page-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
